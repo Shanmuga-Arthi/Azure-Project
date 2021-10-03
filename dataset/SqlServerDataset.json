@@ -1,0 +1,30 @@
+{
+	"name": "SqlServerDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServerLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "outlet_name",
+				"type": "varchar"
+			},
+			{
+				"name": "address_street",
+				"type": "varchar"
+			},
+			{
+				"name": "address_city",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Outlet"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

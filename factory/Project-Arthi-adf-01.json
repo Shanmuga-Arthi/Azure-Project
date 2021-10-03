@@ -1,0 +1,9 @@
+{
+	"name": "Project-Arthi-adf-01",
+	"location": "uksouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "c0f0a784-315d-40de-8fd6-2b5b8a326090",
+		"tenantId": "2efd699a-1922-4e69-b601-108008d28a2e"
+	}
+}

@@ -411,7 +411,7 @@
 				],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "outlet1"
+					"table": "outlets"
 				}
 			},
 			"dependsOn": [

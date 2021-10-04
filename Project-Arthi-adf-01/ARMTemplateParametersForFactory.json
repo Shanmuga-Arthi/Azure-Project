@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "Project-Arthi-adf-01"
+		},
+		"AzureSqlDatabaseLinkedService_connectionString": {
+			"value": ""
+		},
+		"AzureStorageLinkedService_connectionString": {
+			"value": ""
+		},
+		"SqlServerLinkedService_connectionString": {
+			"value": ""
+		},
+		"ls_adls_projectdl_accountKey": {
+			"value": ""
+		},
+		"ls_asa_projectsa_connectionString": {
+			"value": ""
+		},
+		"ls_source_q3_connectionString": {
+			"value": ""
+		},
+		"ls_adls_projectdl_properties_typeProperties_url": {
+			"value": "https://projectstorageaccadls.dfs.core.windows.net"
+		}
+	}
+}

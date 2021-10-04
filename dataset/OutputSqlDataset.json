@@ -28,7 +28,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "outlets"
+			"table": "out"
 		}
 	}
 }

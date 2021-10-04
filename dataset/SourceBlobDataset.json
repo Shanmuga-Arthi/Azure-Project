@@ -1,0 +1,37 @@
+{
+	"name": "SourceBlobDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureStorageLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "outlet.txt",
+				"folderPath": "input",
+				"container": "myblob"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "outlet_name",
+				"type": "String"
+			},
+			{
+				"name": "address_street",
+				"type": "String"
+			},
+			{
+				"name": "address_city",
+				"type": "String"
+			}
+		]
+	}
+}

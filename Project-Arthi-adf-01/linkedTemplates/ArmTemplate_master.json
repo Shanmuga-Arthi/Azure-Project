@@ -27,9 +27,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_asa_projectsa'"
 		},
+		"ls_movies_dynamic_q4_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_movies_dynamic_q4'"
+		},
 		"ls_source_q3_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_source_q3'"
+		},
+		"sqltest_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'sqltest'"
 		},
 		"ls_adls_projectdl_properties_typeProperties_url": {
 			"type": "string",
@@ -77,8 +85,14 @@
 					"ls_asa_projectsa_connectionString": {
 						"value": "[parameters('ls_asa_projectsa_connectionString')]"
 					},
+					"ls_movies_dynamic_q4_connectionString": {
+						"value": "[parameters('ls_movies_dynamic_q4_connectionString')]"
+					},
 					"ls_source_q3_connectionString": {
 						"value": "[parameters('ls_source_q3_connectionString')]"
+					},
+					"sqltest_connectionString": {
+						"value": "[parameters('sqltest_connectionString')]"
 					},
 					"ls_adls_projectdl_properties_typeProperties_url": {
 						"value": "[parameters('ls_adls_projectdl_properties_typeProperties_url')]"
@@ -86,6 +100,26 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "Project-Arthi-adf-01_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'Project-Arthi-adf-01_ArmTemplate_0')]"
+			]
 		}
 	]
 }

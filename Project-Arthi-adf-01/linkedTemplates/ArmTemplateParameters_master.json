@@ -20,7 +20,13 @@
 		"ls_asa_projectsa_connectionString": {
 			"value": ""
 		},
+		"ls_movies_dynamic_q4_connectionString": {
+			"value": ""
+		},
 		"ls_source_q3_connectionString": {
+			"value": ""
+		},
+		"sqltest_connectionString": {
 			"value": ""
 		},
 		"ls_adls_projectdl_properties_typeProperties_url": {

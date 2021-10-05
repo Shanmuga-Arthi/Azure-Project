@@ -24,7 +24,10 @@
 				},
 				"container": "moviedata"
 			},
-			"columnDelimiter": ",",
+			"columnDelimiter": {
+				"value": "@dataset().DelimiterSymbol",
+				"type": "Expression"
+			},
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""

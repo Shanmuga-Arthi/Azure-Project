@@ -27,7 +27,8 @@
 						"parameters": {
 							"TableName": "_notSet"
 						}
-					}
+					},
+					"firstRowOnly": false
 				}
 			},
 			{

@@ -6,7 +6,7 @@
 		"type": "AzureSqlDW",
 		"typeProperties": {
 			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=arthiworkspace.sql.azuresynapse.net;initial catalog=dedicatedpool;user id=sqladminuser",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI0NDk3MmMzNS0wNmJmLTQxYzgtOWI5Ny03MmU5NGUxNzk1OGYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJmZDAxMWI5MS00ZTA0LTRhZTgtODZmZi02ZTY5NjhmOGMwYmYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "IR-1",

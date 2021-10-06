@@ -2,7 +2,7 @@
 	"name": "SourceDatasetq5",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_q5_azsqldb",
+			"referenceName": "AzureSqlDatabaseLinkedService",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],

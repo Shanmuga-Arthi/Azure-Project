@@ -6,7 +6,7 @@
 		"type": "AzureSqlDW",
 		"typeProperties": {
 			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=synapseclassworkspace.sql.azuresynapse.net;initial catalog=dedicatedpool;user id=sqladminuser",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI2MzBmYWNiZi1jNmUyLTRmODQtYTkwZC0zYjczZDIxMWM4NDgiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI2ZjQ4MzYwMy1mMDY4LTQ0MGQtODgxNy00NDgwOGRlNzdjODciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "IR-1",

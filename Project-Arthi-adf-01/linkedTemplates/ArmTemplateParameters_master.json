@@ -5,7 +5,16 @@
 		"factoryName": {
 			"value": "Project-Arthi-adf-01"
 		},
+		"AzureSqlDWLinkedService_connectionString": {
+			"value": ""
+		},
 		"AzureSqlDatabaseLinkedService_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabaselsq5_connectionString": {
+			"value": ""
+		},
+		"AzureStorageLinkedService q2_connectionString": {
 			"value": ""
 		},
 		"AzureStorageLinkedService_connectionString": {
@@ -21,6 +30,9 @@
 			"value": ""
 		},
 		"ls_movies_dynamic_q4_connectionString": {
+			"value": ""
+		},
+		"ls_q5_azsqldb_connectionString": {
 			"value": ""
 		},
 		"ls_source_q3_connectionString": {

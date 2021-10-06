@@ -7,9 +7,21 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "Project-Arthi-adf-01"
 		},
+		"AzureSqlDWLinkedService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDWLinkedService'"
+		},
 		"AzureSqlDatabaseLinkedService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseLinkedService'"
+		},
+		"AzureSqlDatabaselsq5_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaselsq5'"
+		},
+		"AzureStorageLinkedService q2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureStorageLinkedService q2'"
 		},
 		"AzureStorageLinkedService_connectionString": {
 			"type": "secureString",
@@ -30,6 +42,10 @@
 		"ls_movies_dynamic_q4_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_movies_dynamic_q4'"
+		},
+		"ls_q5_azsqldb_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_q5_azsqldb'"
 		},
 		"ls_source_q3_connectionString": {
 			"type": "secureString",
@@ -70,8 +86,17 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureSqlDWLinkedService_connectionString": {
+						"value": "[parameters('AzureSqlDWLinkedService_connectionString')]"
+					},
 					"AzureSqlDatabaseLinkedService_connectionString": {
 						"value": "[parameters('AzureSqlDatabaseLinkedService_connectionString')]"
+					},
+					"AzureSqlDatabaselsq5_connectionString": {
+						"value": "[parameters('AzureSqlDatabaselsq5_connectionString')]"
+					},
+					"AzureStorageLinkedService q2_connectionString": {
+						"value": "[parameters('AzureStorageLinkedService q2_connectionString')]"
 					},
 					"AzureStorageLinkedService_connectionString": {
 						"value": "[parameters('AzureStorageLinkedService_connectionString')]"
@@ -87,6 +112,9 @@
 					},
 					"ls_movies_dynamic_q4_connectionString": {
 						"value": "[parameters('ls_movies_dynamic_q4_connectionString')]"
+					},
+					"ls_q5_azsqldb_connectionString": {
+						"value": "[parameters('ls_q5_azsqldb_connectionString')]"
 					},
 					"ls_source_q3_connectionString": {
 						"value": "[parameters('ls_source_q3_connectionString')]"

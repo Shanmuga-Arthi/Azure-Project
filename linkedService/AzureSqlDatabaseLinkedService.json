@@ -5,8 +5,8 @@
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
-			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=projectarthisqlserver.database.windows.net;initial catalog=Project-Arthi-sqldb;user id=adm",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI1MTM2MWE3Zi01YjMwLTQzYWUtODRkNC00NjI1MTE2ZjlmODkiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=mysqlserverq2.database.windows.net;initial catalog=mySampleDatabaseQ2;user id=adm",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJlNWE2YmVhMy1lOTEyLTQ1ZDAtOTY2ZS1iNjcyZjhhYmMwODUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "IR-1",

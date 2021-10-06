@@ -28,49 +28,6 @@
 				}
 			},
 			{
-				"name": "StoredProceduretoWriteWatermarkActivity",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "IncrementalCopyActivity",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "usp_write_watermark",
-					"storedProcedureParameters": {
-						"LastModifiedtime": {
-							"value": {
-								"value": "@{activity('LookupNewWaterMarkActivity').output.firstRow.NewWatermarkvalue}",
-								"type": "Expression"
-							},
-							"type": "DateTime"
-						},
-						"TableName": {
-							"value": {
-								"value": "@{activity('LookupOldWaterMarkActivity').output.firstRow.TableName}",
-								"type": "Expression"
-							},
-							"type": "String"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "ls_q5_azsqldb",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
 				"name": "IncrementalCopyActivity",
 				"type": "Copy",
 				"dependsOn": [

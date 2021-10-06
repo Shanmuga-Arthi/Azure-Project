@@ -1,0 +1,16 @@
+{
+	"name": "AzureSqlDBDSq2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_azsqldb_q2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "dummyName"
+		}
+	}
+}

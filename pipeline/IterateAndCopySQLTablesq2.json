@@ -52,7 +52,7 @@
 								"enableStaging": true,
 								"stagingSettings": {
 									"linkedServiceName": {
-										"referenceName": "AzureStorageLinkedService q2",
+										"referenceName": "AzureStorageLinkedService",
 										"type": "LinkedServiceReference"
 									}
 								}
@@ -72,7 +72,10 @@
 											"value": "@item().TABLE_NAME",
 											"type": "Expression"
 										},
-										"DWSchema": "@item().TABLE_SCHEMA"
+										"DWSchema": {
+											"value": "@item().TABLE_SCHEMA",
+											"type": "Expression"
+										}
 									}
 								}
 							]

@@ -39,6 +39,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_asa_projectsa'"
 		},
+		"ls_azsqldb_q2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_azsqldb_q2'"
+		},
+		"ls_azsynapse_q2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_azsynapse_q2'"
+		},
 		"ls_movies_dynamic_q4_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_movies_dynamic_q4'"
@@ -173,7 +181,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/GetTableListAndTriggerCopyData')]",
+			"name": "[concat(parameters('factoryName'), '/GetTableListAndTriggerCopyDataq2')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -199,7 +207,7 @@
 								"partitionOption": "None"
 							},
 							"dataset": {
-								"referenceName": "AzureSqlTable1",
+								"referenceName": "AzureSqlDBDSq2",
 								"type": "DatasetReference",
 								"parameters": {}
 							},
@@ -220,7 +228,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "IterateAndCopySQLTables q5",
+								"referenceName": "IterateAndCopySQLTablesq2",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": false,
@@ -240,8 +248,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]",
-				"[concat(variables('factoryId'), '/pipelines/IterateAndCopySQLTables q5')]"
+				"[concat(variables('factoryId'), '/datasets/AzureSqlDBDSq2')]",
+				"[concat(variables('factoryId'), '/pipelines/IterateAndCopySQLTablesq2')]"
 			]
 		},
 		{
@@ -424,7 +432,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/IterateAndCopySQLTables q5')]",
+			"name": "[concat(parameters('factoryName'), '/IterateAndCopySQLTablesq2')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -441,7 +449,7 @@
 							},
 							"activities": [
 								{
-									"name": "Copydata",
+									"name": "Copy data1",
 									"type": "Copy",
 									"dependsOn": [],
 									"policy": {
@@ -479,24 +487,27 @@
 										"enableStaging": true,
 										"stagingSettings": {
 											"linkedServiceName": {
-												"referenceName": "AzureStorageLinkedService",
+												"referenceName": "AzureStorageLinkedService q2",
 												"type": "LinkedServiceReference"
 											}
 										}
 									},
 									"inputs": [
 										{
-											"referenceName": "AzureSqlTable1",
+											"referenceName": "AzureSqlDBDSq2",
 											"type": "DatasetReference",
 											"parameters": {}
 										}
 									],
 									"outputs": [
 										{
-											"referenceName": "AzureSqlDWDatasetq5",
+											"referenceName": "azsynapseSqlDWDSq2",
 											"type": "DatasetReference",
 											"parameters": {
-												"DWTableName": "@item().TABLE_NAME",
+												"DWTableName": {
+													"value": "@item().TABLE_NAME",
+													"type": "Expression"
+												},
 												"DWSchema": "@item().TABLE_SCHEMA"
 											}
 										}
@@ -518,9 +529,9 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]",
-				"[concat(variables('factoryId'), '/datasets/AzureSqlDWDatasetq5')]",
-				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
+				"[concat(variables('factoryId'), '/datasets/AzureSqlDBDSq2')]",
+				"[concat(variables('factoryId'), '/datasets/azsynapseSqlDWDSq2')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService q2')]"
 			]
 		},
 		{
@@ -892,47 +903,12 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlDWDatasetq5')]",
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDBDSq2')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "AzureSqlDWLinkedService",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"DWTableName": {
-						"type": "string"
-					},
-					"DWSchema": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "AzureSqlDWTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": {
-						"value": "@dataset().DWSchema",
-						"type": "Expression"
-					},
-					"table": {
-						"value": "@dataset().DWTableName",
-						"type": "Expression"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDWLinkedService')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabaseLinkedService",
+					"referenceName": "ls_azsqldb_q2",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -944,7 +920,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseLinkedService')]"
+				"[concat(variables('factoryId'), '/linkedServices/ls_azsqldb_q2')]"
 			]
 		},
 		{
@@ -1113,6 +1089,41 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/SqlServerLinkedService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/azsynapseSqlDWDSq2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_azsynapse_q2",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"DWTableName": {
+						"type": "string"
+					},
+					"DWSchema": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": {
+						"value": "@dataset().DWSchema",
+						"type": "Expression"
+					},
+					"table": {
+						"value": "@dataset().DWTableName",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_azsynapse_q2')]"
 			]
 		},
 		{
@@ -1456,6 +1467,44 @@
 				"type": "AzureBlobStorage",
 				"typeProperties": {
 					"connectionString": "[parameters('ls_asa_projectsa_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "IR-1",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/IR-1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_azsqldb_q2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_azsqldb_q2_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "IR-1",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/IR-1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_azsynapse_q2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDW",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_azsynapse_q2_connectionString')]"
 				},
 				"connectVia": {
 					"referenceName": "IR-1",

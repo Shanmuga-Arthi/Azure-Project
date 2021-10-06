@@ -13,6 +13,25 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/SourceDatasetq5')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "data_source_table"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SqlServerDataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -40,6 +59,39 @@
 				"typeProperties": {
 					"schema": "dbo",
 					"table": "Outlet"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/azsynapseSqlDWDSq2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_azsynapse_q2",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"DWTableName": {
+						"type": "string"
+					},
+					"DWSchema": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlDWTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": {
+						"value": "@dataset().DWSchema",
+						"type": "Expression"
+					},
+					"table": {
+						"value": "@dataset().DWTableName",
+						"type": "Expression"
+					}
 				}
 			},
 			"dependsOn": []
@@ -508,11 +560,12 @@
 				"annotations": []
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SourceDatasetq5')]",
 				"[concat(variables('factoryId'), '/datasets/watermarkDataset')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/IterateAndCopySQLTables q5')]",
+			"name": "[concat(parameters('factoryName'), '/IterateAndCopySQLTablesq2')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -529,7 +582,7 @@
 							},
 							"activities": [
 								{
-									"name": "Copydata",
+									"name": "Copy data1",
 									"type": "Copy",
 									"dependsOn": [],
 									"policy": {
@@ -567,24 +620,27 @@
 										"enableStaging": true,
 										"stagingSettings": {
 											"linkedServiceName": {
-												"referenceName": "AzureStorageLinkedService",
+												"referenceName": "AzureStorageLinkedService q2",
 												"type": "LinkedServiceReference"
 											}
 										}
 									},
 									"inputs": [
 										{
-											"referenceName": "AzureSqlTable1",
+											"referenceName": "AzureSqlDBDSq2",
 											"type": "DatasetReference",
 											"parameters": {}
 										}
 									],
 									"outputs": [
 										{
-											"referenceName": "AzureSqlDWDatasetq5",
+											"referenceName": "azsynapseSqlDWDSq2",
 											"type": "DatasetReference",
 											"parameters": {
-												"DWTableName": "@item().TABLE_NAME",
+												"DWTableName": {
+													"value": "@item().TABLE_NAME",
+													"type": "Expression"
+												},
 												"DWSchema": "@item().TABLE_SCHEMA"
 											}
 										}
@@ -605,7 +661,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/azsynapseSqlDWDSq2')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/SQLServerToBlobPipeline')]",
@@ -943,7 +1001,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/GetTableListAndTriggerCopyData')]",
+			"name": "[concat(parameters('factoryName'), '/GetTableListAndTriggerCopyDataq2')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -969,7 +1027,7 @@
 								"partitionOption": "None"
 							},
 							"dataset": {
-								"referenceName": "AzureSqlTable1",
+								"referenceName": "AzureSqlDBDSq2",
 								"type": "DatasetReference",
 								"parameters": {}
 							},
@@ -990,7 +1048,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "IterateAndCopySQLTables q5",
+								"referenceName": "IterateAndCopySQLTablesq2",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": false,
@@ -1010,7 +1068,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/IterateAndCopySQLTables q5')]"
+				"[concat(variables('factoryId'), '/pipelines/IterateAndCopySQLTablesq2')]"
 			]
 		}
 	]

@@ -29,6 +29,12 @@
 		"ls_asa_projectsa_connectionString": {
 			"value": ""
 		},
+		"ls_azsqldb_q2_connectionString": {
+			"value": ""
+		},
+		"ls_azsynapse_q2_connectionString": {
+			"value": ""
+		},
 		"ls_movies_dynamic_q4_connectionString": {
 			"value": ""
 		},

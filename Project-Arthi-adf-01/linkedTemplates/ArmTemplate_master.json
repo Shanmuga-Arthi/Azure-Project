@@ -39,6 +39,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_asa_projectsa'"
 		},
+		"ls_azsqldb_q2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_azsqldb_q2'"
+		},
+		"ls_azsynapse_q2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_azsynapse_q2'"
+		},
 		"ls_movies_dynamic_q4_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_movies_dynamic_q4'"
@@ -109,6 +117,12 @@
 					},
 					"ls_asa_projectsa_connectionString": {
 						"value": "[parameters('ls_asa_projectsa_connectionString')]"
+					},
+					"ls_azsqldb_q2_connectionString": {
+						"value": "[parameters('ls_azsqldb_q2_connectionString')]"
+					},
+					"ls_azsynapse_q2_connectionString": {
+						"value": "[parameters('ls_azsynapse_q2_connectionString')]"
 					},
 					"ls_movies_dynamic_q4_connectionString": {
 						"value": "[parameters('ls_movies_dynamic_q4_connectionString')]"

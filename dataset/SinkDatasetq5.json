@@ -2,7 +2,7 @@
 	"name": "SinkDatasetq5",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureStorageLinkedService",
+			"referenceName": "AzureStorageLinkedService q2",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],

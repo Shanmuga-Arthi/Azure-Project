@@ -1119,7 +1119,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "AzureStorageLinkedService",
+					"referenceName": "AzureStorageLinkedService q2",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -1142,7 +1142,7 @@
 				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService q2')]"
 			]
 		},
 		{

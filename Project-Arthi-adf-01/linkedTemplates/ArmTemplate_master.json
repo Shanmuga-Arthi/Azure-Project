@@ -15,10 +15,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseLinkedService'"
 		},
-		"AzureSqlDatabaselsq5_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaselsq5'"
-		},
 		"AzureStorageLinkedService q2_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureStorageLinkedService q2'"
@@ -114,9 +110,6 @@
 					"AzureSqlDatabaseLinkedService_connectionString": {
 						"value": "[parameters('AzureSqlDatabaseLinkedService_connectionString')]"
 					},
-					"AzureSqlDatabaselsq5_connectionString": {
-						"value": "[parameters('AzureSqlDatabaselsq5_connectionString')]"
-					},
 					"AzureStorageLinkedService q2_connectionString": {
 						"value": "[parameters('AzureStorageLinkedService q2_connectionString')]"
 					},
@@ -147,6 +140,9 @@
 					"ls_source_q3_connectionString": {
 						"value": "[parameters('ls_source_q3_connectionString')]"
 					},
+					"sqltest_connectionString": {
+						"value": "[parameters('sqltest_connectionString')]"
+					},
 					"ls_adls_projectdl_properties_typeProperties_url": {
 						"value": "[parameters('ls_adls_projectdl_properties_typeProperties_url')]"
 					}
@@ -167,34 +163,11 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"sqltest_connectionString": {
-						"value": "[parameters('sqltest_connectionString')]"
 					}
 				}
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'Project-Arthi-adf-01_ArmTemplate_0')]"
-			]
-		},
-		{
-			"name": "Project-Arthi-adf-01_ArmTemplate_2",
-			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
-			"properties": {
-				"mode": "incremental",
-				"templateLink": {
-					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
-					"contentVersion": "1.0.0.0"
-				},
-				"parameters": {
-					"factoryName": {
-						"value": "[parameters('factoryName')]"
-					}
-				}
-			},
-			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'Project-Arthi-adf-01_ArmTemplate_1')]"
 			]
 		}
 	]

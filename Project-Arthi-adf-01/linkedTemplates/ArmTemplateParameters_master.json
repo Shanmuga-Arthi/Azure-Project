@@ -11,9 +11,6 @@
 		"AzureSqlDatabaseLinkedService_connectionString": {
 			"value": ""
 		},
-		"AzureSqlDatabaselsq5_connectionString": {
-			"value": ""
-		},
 		"AzureStorageLinkedService q2_connectionString": {
 			"value": ""
 		},

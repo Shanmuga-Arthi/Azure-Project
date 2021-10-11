@@ -51,6 +51,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_movies_dynamic_q4'"
 		},
+		"ls_pbm8_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_pbm8'"
+		},
 		"ls_project7_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_project7'"
@@ -66,10 +70,6 @@
 		"sqltest_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'sqltest'"
-		},
-		"ls_pbm8_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'ls_pbm8'"
 		},
 		"ls_adls_projectdl_properties_typeProperties_url": {
 			"type": "string",
@@ -102,11 +102,11 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"ls_project7_connectionString": {
-						"value": "[parameters('ls_project7_connectionString')]"
-					},
 					"ls_pbm8_connectionString": {
 						"value": "[parameters('ls_pbm8_connectionString')]"
+					},
+					"ls_project7_connectionString": {
+						"value": "[parameters('ls_project7_connectionString')]"
 					},
 					"AzureSqlDWLinkedService_connectionString": {
 						"value": "[parameters('AzureSqlDWLinkedService_connectionString')]"
@@ -147,9 +147,6 @@
 					"ls_source_q3_connectionString": {
 						"value": "[parameters('ls_source_q3_connectionString')]"
 					},
-					"sqltest_connectionString": {
-						"value": "[parameters('sqltest_connectionString')]"
-					},
 					"ls_adls_projectdl_properties_typeProperties_url": {
 						"value": "[parameters('ls_adls_projectdl_properties_typeProperties_url')]"
 					}
@@ -170,11 +167,34 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"sqltest_connectionString": {
+						"value": "[parameters('sqltest_connectionString')]"
 					}
 				}
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'Project-Arthi-adf-01_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "Project-Arthi-adf-01_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'Project-Arthi-adf-01_ArmTemplate_1')]"
 			]
 		}
 	]

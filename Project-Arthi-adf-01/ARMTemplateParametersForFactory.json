@@ -20,6 +20,9 @@
 		"SqlServerLinkedService_connectionString": {
 			"value": ""
 		},
+		"ls_AzureBlobStorage_q5_connectionString": {
+			"value": ""
+		},
 		"ls_adls_projectdl_accountKey": {
 			"value": ""
 		},
@@ -27,6 +30,9 @@
 			"value": ""
 		},
 		"ls_azsqldb_q2_connectionString": {
+			"value": ""
+		},
+		"ls_azsqldb_q5_connectionString": {
 			"value": ""
 		},
 		"ls_azsynapse_q2_connectionString": {

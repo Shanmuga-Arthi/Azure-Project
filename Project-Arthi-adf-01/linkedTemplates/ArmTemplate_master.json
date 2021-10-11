@@ -27,6 +27,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SqlServerLinkedService'"
 		},
+		"ls_AzureBlobStorage_q5_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_AzureBlobStorage_q5'"
+		},
 		"ls_adls_projectdl_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ls_adls_projectdl'"
@@ -38,6 +42,10 @@
 		"ls_azsqldb_q2_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_azsqldb_q2'"
+		},
+		"ls_azsqldb_q5_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_azsqldb_q5'"
 		},
 		"ls_azsynapse_q2_connectionString": {
 			"type": "secureString",
@@ -119,6 +127,9 @@
 					"SqlServerLinkedService_connectionString": {
 						"value": "[parameters('SqlServerLinkedService_connectionString')]"
 					},
+					"ls_AzureBlobStorage_q5_connectionString": {
+						"value": "[parameters('ls_AzureBlobStorage_q5_connectionString')]"
+					},
 					"ls_adls_projectdl_accountKey": {
 						"value": "[parameters('ls_adls_projectdl_accountKey')]"
 					},
@@ -128,6 +139,9 @@
 					"ls_azsqldb_q2_connectionString": {
 						"value": "[parameters('ls_azsqldb_q2_connectionString')]"
 					},
+					"ls_azsqldb_q5_connectionString": {
+						"value": "[parameters('ls_azsqldb_q5_connectionString')]"
+					},
 					"ls_azsynapse_q2_connectionString": {
 						"value": "[parameters('ls_azsynapse_q2_connectionString')]"
 					},
@@ -136,12 +150,6 @@
 					},
 					"ls_q5_azsqldb_connectionString": {
 						"value": "[parameters('ls_q5_azsqldb_connectionString')]"
-					},
-					"ls_source_q3_connectionString": {
-						"value": "[parameters('ls_source_q3_connectionString')]"
-					},
-					"sqltest_connectionString": {
-						"value": "[parameters('sqltest_connectionString')]"
 					},
 					"ls_adls_projectdl_properties_typeProperties_url": {
 						"value": "[parameters('ls_adls_projectdl_properties_typeProperties_url')]"
@@ -163,11 +171,37 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"ls_source_q3_connectionString": {
+						"value": "[parameters('ls_source_q3_connectionString')]"
+					},
+					"sqltest_connectionString": {
+						"value": "[parameters('sqltest_connectionString')]"
 					}
 				}
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'Project-Arthi-adf-01_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "Project-Arthi-adf-01_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'Project-Arthi-adf-01_ArmTemplate_1')]"
 			]
 		}
 	]

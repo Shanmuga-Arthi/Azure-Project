@@ -14,7 +14,10 @@
 					"value": "@CONCAT('Incremental-', pipeline().RunId, '.txt')",
 					"type": "Expression"
 				},
-				"folderPath": "incrementalcopy",
+				"folderPath": {
+					"value": "incrementalcopy",
+					"type": "Expression"
+				},
 				"container": "myblob"
 			},
 			"columnDelimiter": ",",

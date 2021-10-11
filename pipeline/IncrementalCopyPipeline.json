@@ -38,7 +38,7 @@
 						]
 					},
 					{
-						"activity": "LookupOldWaterMarkActivity",
+						"activity": "LkUpOldWMActivity",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -56,7 +56,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select * from data_source_table where LastModifytime > '@{activity('LookupOldWaterMarkActivity').output.firstRow.WatermarkValue}' and LastModifytime <= '@{activity('LookupNewWaterMarkActivity').output.firstRow.NewWatermarkvalue}'",
+							"value": "select * from data_source_table where LastModifytime >'@{activity('LkUpOldWMActivity').output.firstRow.WatermarkValue}' and LastModifytime <= '@{activity('LookupNewWaterMarkActivity').output.firstRow.NewWatermarkvalue}'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -135,7 +135,7 @@
 				]
 			},
 			{
-				"name": "LookupOldWaterMarkActivity",
+				"name": "LkUpOldWMActivity",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -188,7 +188,10 @@
 							"type": "DateTime"
 						},
 						"TableName": {
-							"value": "@{activity('LookupOldWaterMarkActivity').output.firstRow.TableName}",
+							"value": {
+								"value": "@{activity('LkUpOldWMActivity').output.firstRow.TableName}",
+								"type": "Expression"
+							},
 							"type": "String"
 						}
 					}

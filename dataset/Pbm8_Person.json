@@ -1,0 +1,30 @@
+{
+	"name": "Pbm8_Person",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_pbm8",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PersonId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "FirstName",
+				"type": "varchar"
+			},
+			{
+				"name": "LastName",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Person"
+		}
+	}
+}

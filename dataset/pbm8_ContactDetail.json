@@ -1,0 +1,36 @@
+{
+	"name": "pbm8_ContactDetail",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_pbm8",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ContactId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PersonId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "TypeId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Detail",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ContactDetail"
+		}
+	}
+}

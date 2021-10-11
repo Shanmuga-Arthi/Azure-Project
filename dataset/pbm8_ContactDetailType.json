@@ -1,0 +1,26 @@
+{
+	"name": "pbm8_ContactDetailType",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_pbm8",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "TypeId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Detail",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ContactDetailType"
+		}
+	}
+}

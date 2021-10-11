@@ -38,6 +38,9 @@
 		"ls_movies_dynamic_q4_connectionString": {
 			"value": ""
 		},
+		"ls_project7_connectionString": {
+			"value": ""
+		},
 		"ls_q5_azsqldb_connectionString": {
 			"value": ""
 		},
@@ -45,6 +48,9 @@
 			"value": ""
 		},
 		"sqltest_connectionString": {
+			"value": ""
+		},
+		"ls_pbm8_connectionString": {
 			"value": ""
 		},
 		"ls_adls_projectdl_properties_typeProperties_url": {

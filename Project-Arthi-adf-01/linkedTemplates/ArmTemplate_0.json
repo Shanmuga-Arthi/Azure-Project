@@ -7,6 +7,14 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "Project-Arthi-adf-01"
 		},
+		"ls_project7_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_project7'"
+		},
+		"ls_pbm8_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_pbm8'"
+		},
 		"AzureSqlDWLinkedService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDWLinkedService'"
@@ -73,12 +81,38 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/ls_project7')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_project7_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/IR-1')]",
 			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"type": "SelfHosted",
 				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_pbm8')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_pbm8_connectionString')]"
+				}
 			},
 			"dependsOn": []
 		},
@@ -353,169 +387,136 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureBlobDataset')]",
+			"name": "[concat(parameters('factoryName'), '/Pbm8_Address')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "ls_asa_projectsa",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@CONCAT(pipeline().RunId, '.txt')",
-							"type": "Expression"
-						},
-						"folderPath": "/fromonprem",
-						"container": "myblob"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_asa_projectsa')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlDBDSq2')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_azsqldb_q2",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "dummyName"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_azsqldb_q2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/OutputSqlDataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabaseLinkedService",
+					"referenceName": "ls_pbm8",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [
 					{
-						"name": "ID",
+						"name": "AddressId",
 						"type": "int",
 						"precision": 10
 					},
 					{
-						"name": "outlet_name",
+						"name": "PersonId",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Line1",
 						"type": "varchar"
 					},
 					{
-						"name": "address_street",
+						"name": "Line2",
 						"type": "varchar"
 					},
 					{
-						"name": "address_city",
+						"name": "City",
+						"type": "varchar"
+					},
+					{
+						"name": "State",
+						"type": "varchar"
+					},
+					{
+						"name": "Zip",
+						"type": "varchar"
+					},
+					{
+						"name": "Country",
+						"type": "varchar"
+					},
+					{
+						"name": "TypeId",
+						"type": "int",
+						"precision": 10
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Address"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_pbm8')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pbm8_ContactDetailType')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_pbm8",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "TypeId",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Detail",
 						"type": "varchar"
 					}
 				],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "outlets"
+					"table": "ContactDetailType"
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseLinkedService')]"
+				"[concat(variables('factoryId'), '/linkedServices/ls_pbm8')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SinkDatasetq5')]",
+			"name": "[concat(parameters('factoryName'), '/pbm8_ContactDetail')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "AzureStorageLinkedService",
+					"referenceName": "ls_pbm8",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@CONCAT('Incremental-', pipeline().RunId, '.txt')",
-							"type": "Expression"
-						},
-						"folderPath": "incrementalcopy",
-						"container": "myblob"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SourceBlobDataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureStorageLinkedService",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "outlet.txt",
-						"folderPath": "input",
-						"container": "myblob"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
+				"type": "AzureSqlTable",
 				"schema": [
 					{
-						"name": "outlet_name",
-						"type": "String"
+						"name": "ContactId",
+						"type": "int",
+						"precision": 10
 					},
 					{
-						"name": "address_street",
-						"type": "String"
+						"name": "PersonId",
+						"type": "int",
+						"precision": 10
 					},
 					{
-						"name": "address_city",
-						"type": "String"
+						"name": "TypeId",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Detail",
+						"type": "varchar"
 					}
-				]
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "ContactDetail"
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
+				"[concat(variables('factoryId'), '/linkedServices/ls_pbm8')]"
 			]
 		}
 	]

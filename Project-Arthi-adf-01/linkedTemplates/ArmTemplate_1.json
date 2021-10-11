@@ -13,6 +13,162 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_asa_projectsa",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@CONCAT(pipeline().RunId, '.txt')",
+							"type": "Expression"
+						},
+						"folderPath": "/fromonprem",
+						"container": "myblob"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDBDSq2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_azsqldb_q2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "dummyName"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/OutputSqlDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "outlet_name",
+						"type": "varchar"
+					},
+					{
+						"name": "address_street",
+						"type": "varchar"
+					},
+					{
+						"name": "address_city",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "outlets"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SinkDatasetq5')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureStorageLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@CONCAT('Incremental-', pipeline().RunId, '.txt')",
+							"type": "Expression"
+						},
+						"folderPath": "incrementalcopy",
+						"container": "myblob"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceBlobDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureStorageLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "outlet.txt",
+						"folderPath": "input",
+						"container": "myblob"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "outlet_name",
+						"type": "String"
+					},
+					{
+						"name": "address_street",
+						"type": "String"
+					},
+					{
+						"name": "address_city",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SourceDatasetq5')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -384,7 +540,10 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SourceBlobDataset')]",
+				"[concat(variables('factoryId'), '/datasets/OutputSqlDataset')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/IncrementalCopyPipeline')]",
@@ -561,6 +720,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/SourceDatasetq5')]",
+				"[concat(variables('factoryId'), '/datasets/SinkDatasetq5')]",
 				"[concat(variables('factoryId'), '/datasets/watermarkDataset')]"
 			]
 		},
@@ -638,11 +798,11 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"DWTableName": {
-													"value": "@item().TABLE_NAME",
+													"value": "[[@{item().TABLE_NAME}]",
 													"type": "Expression"
 												},
 												"DWSchema": {
-													"value": "@item().TABLE_SCHEMA",
+													"value": "[[@{item().TABLE_SCHEMA}]",
 													"type": "Expression"
 												}
 											}
@@ -665,6 +825,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/AzureSqlDBDSq2')]",
 				"[concat(variables('factoryId'), '/datasets/azsynapseSqlDWDSq2')]"
 			]
 		},
@@ -784,7 +945,8 @@
 				"lastPublishTime": "2021-10-03T22:00:38Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SqlServerDataset')]"
+				"[concat(variables('factoryId'), '/datasets/SqlServerDataset')]",
+				"[concat(variables('factoryId'), '/datasets/AzureBlobDataset')]"
 			]
 		},
 		{
@@ -1071,6 +1233,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/AzureSqlDBDSq2')]",
 				"[concat(variables('factoryId'), '/pipelines/IterateAndCopySQLTablesq2')]"
 			]
 		}

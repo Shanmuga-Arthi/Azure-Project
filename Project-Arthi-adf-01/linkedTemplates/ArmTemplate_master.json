@@ -51,6 +51,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_movies_dynamic_q4'"
 		},
+		"ls_project7_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_project7'"
+		},
 		"ls_q5_azsqldb_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_q5_azsqldb'"
@@ -62,6 +66,10 @@
 		"sqltest_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'sqltest'"
+		},
+		"ls_pbm8_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_pbm8'"
 		},
 		"ls_adls_projectdl_properties_typeProperties_url": {
 			"type": "string",
@@ -93,6 +101,12 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"ls_project7_connectionString": {
+						"value": "[parameters('ls_project7_connectionString')]"
+					},
+					"ls_pbm8_connectionString": {
+						"value": "[parameters('ls_pbm8_connectionString')]"
 					},
 					"AzureSqlDWLinkedService_connectionString": {
 						"value": "[parameters('AzureSqlDWLinkedService_connectionString')]"

@@ -51,6 +51,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_movies_dynamic_q4'"
 		},
+		"ls_project7_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_project7'"
+		},
 		"ls_q5_azsqldb_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_q5_azsqldb'"
@@ -62,6 +66,10 @@
 		"sqltest_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'sqltest'"
+		},
+		"ls_pbm8_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_pbm8'"
 		},
 		"ls_adls_projectdl_properties_typeProperties_url": {
 			"type": "string",
@@ -505,11 +513,11 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"DWTableName": {
-													"value": "@item().TABLE_NAME",
+													"value": "[[@{item().TABLE_NAME}]",
 													"type": "Expression"
 												},
 												"DWSchema": {
-													"value": "@item().TABLE_SCHEMA",
+													"value": "[[@{item().TABLE_SCHEMA}]",
 													"type": "Expression"
 												}
 											}
@@ -1538,6 +1546,19 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ls_project7')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_project7_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ls_q5_azsqldb')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -1603,6 +1624,152 @@
 				"typeProperties": {}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_pbm8')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_pbm8_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Pbm8_Address')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_pbm8",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "AddressId",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PersonId",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Line1",
+						"type": "varchar"
+					},
+					{
+						"name": "Line2",
+						"type": "varchar"
+					},
+					{
+						"name": "City",
+						"type": "varchar"
+					},
+					{
+						"name": "State",
+						"type": "varchar"
+					},
+					{
+						"name": "Zip",
+						"type": "varchar"
+					},
+					{
+						"name": "Country",
+						"type": "varchar"
+					},
+					{
+						"name": "TypeId",
+						"type": "int",
+						"precision": 10
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Address"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_pbm8')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pbm8_ContactDetailType')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_pbm8",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "TypeId",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Detail",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "ContactDetailType"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_pbm8')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pbm8_ContactDetail')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_pbm8",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "ContactId",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "PersonId",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TypeId",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Detail",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "ContactDetail"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_pbm8')]"
+			]
 		}
 	]
 }

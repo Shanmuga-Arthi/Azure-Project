@@ -11,14 +11,14 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": {
-					"value": "@CONCAT('Incremental-',pipeline().RunId, 'txt')\n\n",
+					"value": "@CONCAT('Incremental-', pipeline().RunId, '.txt')",
 					"type": "Expression"
 				},
 				"folderPath": {
 					"value": "incrementalcopy",
 					"type": "Expression"
 				},
-				"container": "data"
+				"container": "myblob"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

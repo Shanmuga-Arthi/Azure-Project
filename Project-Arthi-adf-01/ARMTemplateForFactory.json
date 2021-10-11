@@ -416,14 +416,14 @@
 							"storedProcedureParameters": {
 								"LastModifiedtime": {
 									"value": {
-										"value": "@activity('LookupNew_wm_act').output.firstRow.NewWatermarkvalue}",
+										"value": "@{activity('LookupNew_wm_act').output.firstRow.NewWatermarkvalue}",
 										"type": "Expression"
 									},
 									"type": "DateTime"
 								},
 								"TableName": {
 									"value": {
-										"value": "@activity('LookupOld_wm_act').output.firstRow.TableName}",
+										"value": "@{activity('LookupOld_wm_act').output.firstRow.TableName}",
 										"type": "Expression"
 									},
 									"type": "String"
@@ -1094,7 +1094,7 @@
 					"location": {
 						"type": "AzureBlobStorageLocation",
 						"fileName": {
-							"value": "@CONCAT('Incremental-', pipeline().RunId, '.txt')",
+							"value": "@CONCAT('Incremental-',pipeline().RunId,'.txt')",
 							"type": "Expression"
 						},
 						"folderPath": "incrementalcopy",

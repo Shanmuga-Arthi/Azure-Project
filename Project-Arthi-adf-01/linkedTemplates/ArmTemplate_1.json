@@ -137,7 +137,10 @@
 							"value": "@CONCAT('Incremental-', pipeline().RunId, '.txt')",
 							"type": "Expression"
 						},
-						"folderPath": "incrementalcopy",
+						"folderPath": {
+							"value": "incrementalcopy",
+							"type": "Expression"
+						},
 						"container": "myblob"
 					},
 					"columnDelimiter": ",",
@@ -200,7 +203,23 @@
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
-				"schema": [],
+				"schema": [
+					{
+						"name": "PersonID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Name",
+						"type": "varchar"
+					},
+					{
+						"name": "LastModifytime",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
 				"typeProperties": {
 					"schema": "dbo",
 					"table": "data_source_table"
@@ -611,7 +630,7 @@
 								]
 							},
 							{
-								"activity": "LookupOldWaterMarkActivity",
+								"activity": "LkUpOldWMActivity",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -629,7 +648,7 @@
 							"source": {
 								"type": "AzureSqlSource",
 								"sqlReaderQuery": {
-									"value": "select * from data_source_table where LastModifytime > '@{activity('LookupOldWaterMarkActivity').output.firstRow.WatermarkValue}' and LastModifytime <= '@{activity('LookupNewWaterMarkActivity').output.firstRow.NewWatermarkvalue}'",
+									"value": "select * from data_source_table where LastModifytime >'@{activity('LkUpOldWMActivity').output.firstRow.WatermarkValue}' and LastModifytime <= '@{activity('LookupNewWaterMarkActivity').output.firstRow.NewWatermarkvalue}'",
 									"type": "Expression"
 								},
 								"queryTimeout": "02:00:00",
@@ -710,7 +729,7 @@
 						]
 					},
 					{
-						"name": "LookupOldWaterMarkActivity",
+						"name": "LkUpOldWMActivity",
 						"type": "Lookup",
 						"dependsOn": [],
 						"policy": {
@@ -765,7 +784,7 @@
 								},
 								"TableName": {
 									"value": {
-										"value": "@{activity('LookupOldWaterMarkActivity').output.firstRow.TableName}",
+										"value": "@{activity('LkUpOldWMActivity').output.firstRow.TableName}",
 										"type": "Expression"
 									},
 									"type": "String"

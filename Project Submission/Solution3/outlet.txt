@@ -1,0 +1,6 @@
+outlet_name,address_street,address_city
+Sklep Awziel,High Street,Rye
+Mentfield,Crescent,Brooklyn
+Natural Valley,kingsley Road,Pittsfield
+Red Outlet,Senator,Brooklyn
+Ads Nawziel,Mount Street,Woodside
